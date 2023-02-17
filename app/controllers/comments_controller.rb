@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
+  before_action :set_article, on: [:edit, :show, :index, :update]
   def index
-    @comments =  Comment.all
+    @comments =  @article.comments
   end
 
   def show
@@ -33,8 +34,34 @@ class CommentsController < ApplicationController
   end
   end
 
+  def update
+    @comment = Comment.find(params[:id])
+
+    if @comment.update(comment_params)
+      redirect_to @comment
+    else
+      render :edit
+    end
+  end
+
+  def update
+    @user = User.find(params[:user_id])
+    @comment = Comment.find(params[:id])
+    if @comment.update(comment_params)
+      redirect_to comment_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+
   private
+
+  def set_article
+    @article = Article.find(params[:article_id])
+  end
+
     def comment_params
-      params.require(:comment).permit(:commenter, :description, :article_id)
+      params.require(:comment).permit(:commenter, :description, :article_id, :user_id)
     end
 end
