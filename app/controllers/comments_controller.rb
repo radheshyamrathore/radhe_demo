@@ -7,12 +7,15 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
   end
 
+  def edit
+    @comment = Comment.find(params[:id])
+  end
+
   def new
     @comment = Comment.new
   end
 
   def create
-
     @comment = Comment.new(comment_params)
     @comment.article_id = params[:article_id] 
     if @comment.save
@@ -20,6 +23,14 @@ class CommentsController < ApplicationController
     else
       render new
     end
+  end
+
+  def destroy
+    @comment = Comment.find(params[:id])
+    @comment.article_id = params[:article_id]
+    if @comment.destroy
+    redirect_to root_path
+  end
   end
 
   private

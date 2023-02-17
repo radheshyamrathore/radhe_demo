@@ -3,3 +3,9 @@
 <li><%= @comment.commenter %></li>
 <li><%= @comment.description %></li>
 </ul>
+<li><%= link_to "Destroy", article_comment_path(@comment), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure for delete article?"
+                  } %></li>
+
+<li><%= link_to "Edit" ,edit_article_comment_path(@comment), data: {turbo_method: :put } %></li>
