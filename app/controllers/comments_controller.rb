@@ -24,6 +24,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment = Comment.find(params[:id])
+    byebug
     @comment.article_id = params[:article_id]
     if @comment.destroy
       redirect_to root_path
@@ -34,7 +35,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @comment.article_id = params[:article_id]
     if @comment.update(comment_params)
-      redirect_to comment_path
+      redirect_to article_comment_path(@comment.article, @comment)
     else
       render :edit
     end
