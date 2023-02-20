@@ -1,8 +1,8 @@
 class CommentsController < ApplicationController
-  before_action :set_article, on: [:update, :destroy, :create]
+  before_action :set_article, only: [:show, :update, :destroy, :create]
 
   def index
-    @comments =  @article.comments
+    @comments =  Comment.all
   end
 
   def show
@@ -19,13 +19,12 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @article.comments.create(comment_params.merge(user_id: current_user.id))
-      redirect_to @article
+    redirect_to @article
   end
 
   def destroy
-    # @article = Article.find(params[:article_id])
-    #@comment = @article.comments.find(comment_params[:comment_id])
     @comment = Comment.find(params[:id])
+    byebug
     @comment.article_id = params[:article_id]
     if @comment.destroy
       redirect_to root_path
@@ -36,7 +35,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @comment.article_id = params[:article_id]
     if @comment.update(comment_params)
-      redirect_to comment_path
+      redirect_to article_comment_path(@comment.article, @comment)
     else
       render :edit
     end
@@ -49,7 +48,7 @@ class CommentsController < ApplicationController
     @article = Article.find(params[:article_id])
   end
 
-    def comment_params
-      params.require(:comment).permit(:commenter, :description, :article_id, :user_id)
-    end
+  def comment_params
+    params.require(:comment).permit(:commenter, :description, :article_id, :user_id)
+  end
 end

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
    get '/users/sign_out' => 'devise/sessions#destroy'     
   end
 
-  root "users#index"
+  root "articles#index"
   resources :users
   resources :articles do 
     resources :comments

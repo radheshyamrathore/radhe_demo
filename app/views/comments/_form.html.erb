@@ -1,5 +1,5 @@
 <h2>Add a comment:</h2>
-<%= form_with model: @comment, url:article_comments_path do |form| %>
+<%= form_with model: @comment, url: article_comment_path do |form| %>
   <p>
     <%= form.label :commenter %><br>
     <%= form.text_field :commenter %>
