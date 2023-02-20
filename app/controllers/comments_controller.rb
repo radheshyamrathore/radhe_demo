@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
-  before_action :set_article, on: [:edit, :show, :index, :update]
+  before_action :set_article, on: [:update, :destroy, :create]
+
   def index
     @comments =  @article.comments
   end
@@ -17,40 +18,27 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comment.new(comment_params)
-    @comment.article_id = params[:article_id] 
-    if @comment.save
-      redirect_to article_comments_path(article_id:@comment.article_id)
-    else
-      render new
-    end
+    @comment = @article.comments.create(comment_params.merge(user_id: current_user.id))
+      redirect_to @article
   end
 
   def destroy
+    # @article = Article.find(params[:article_id])
+    #@comment = @article.comments.find(comment_params[:comment_id])
     @comment = Comment.find(params[:id])
     @comment.article_id = params[:article_id]
     if @comment.destroy
-    redirect_to root_path
-  end
-  end
-
-  def update
-    @comment = Comment.find(params[:id])
-
-    if @comment.update(comment_params)
-      redirect_to @comment
-    else
-      render :edit
+      redirect_to root_path
     end
   end
 
   def update
-    @user = User.find(params[:user_id])
     @comment = Comment.find(params[:id])
+    @comment.article_id = params[:article_id]
     if @comment.update(comment_params)
       redirect_to comment_path
     else
-      render :edit, status: :unprocessable_entity
+      render :edit
     end
   end
 
