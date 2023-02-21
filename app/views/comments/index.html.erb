@@ -1,6 +1,7 @@
 <h1>Comments</h1>
 <% @comments.each do |comment| %>
 	<ul>
+		<li><%= comment.commenter %></li>
 		<li><%= comment.description %></li>
 	</ul>
 <% end %>

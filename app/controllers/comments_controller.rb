@@ -19,21 +19,18 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @article.comments.create(comment_params.merge(user_id: current_user.id))
-    redirect_to @article
+    redirect_to article_comment_path(@article, @comment)
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
-    byebug
-    @comment.article_id = params[:article_id]
+    @comment = @article.comments.find_by(id: params[:id])
     if @comment.destroy
-      redirect_to root_path
+      redirect_to root_path 
     end
   end
 
   def update
-    @comment = Comment.find(params[:id])
-    @comment.article_id = params[:article_id]
+    @comment = @article.comments.find_by(id: params[:id])
     if @comment.update(comment_params)
       redirect_to article_comment_path(@comment.article, @comment)
     else
