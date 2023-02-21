@@ -1,4 +1,5 @@
 <h1>Welcome</h1>
+<h3>This is Article Website</h3>
 <% if user_signed_in? %>
 <%= link_to "New Article", new_article_path, class:"btn btn-primary"%><br>
 <br>
@@ -27,8 +28,11 @@ table{
     <%= article.description%>
   </td>
 
+  <% if article.user_id == current_user.id %>
   <td>
+  	<% if article.user_id == current_user.id %>
     <%= link_to "Edit", edit_article_path(article) %>
+    <% end %>
   </td>
 
   <td>
@@ -37,8 +41,8 @@ table{
                     turbo_confirm: "Are you sure for delete article?"
                   } %>
   </td>
-  
-  
+  <% end %>
+
   </tr>
   <% end %>
 <table>

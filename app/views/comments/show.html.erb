@@ -1,9 +1,9 @@
-<h1>Comments#show</h1>
+<h1>Comment</h1>
 <ul>
 <li><%= @comment.commenter %></li>
 <li><%= @comment.description %></li>
 </ul>
-
+<% if @comment.user_id == current_user.id %>
 <li><%= link_to "Destroy", article_comment_path(@article, @comment), data: {
                     turbo_method: :delete,
                     turbo_confirm: "Are you sure for delete article?"
@@ -11,3 +11,4 @@
                 
 
 <li><%= link_to "Edit" ,edit_article_comment_path(@article, @comment) %></li>
+<% end %>
