@@ -1,7 +1,8 @@
 <h1>Posts</h1>
 <% @posts.each do |post| %>
+<% byebug %>
 	<ul>
-		<li><%= post.title %></li>
+		<%= link_to post.title, article_post_path(post.id) %>
 		<li><%= post.description %></li>
 	</ul>
 <% end %>
