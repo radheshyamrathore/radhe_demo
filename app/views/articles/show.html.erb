@@ -3,4 +3,5 @@
 <li><%= @article.title %></li>
 <li><%= @article.description %></li>
 </ul>
-<li><%= link_to "New comment", new_article_comment_path(@article) %></li>
+<%= link_to "New Post", new_article_post_path(@article), class:"btn btn-primary" %>
+<%#= link_to "comment", article_comment_path(@article.comments) %>
