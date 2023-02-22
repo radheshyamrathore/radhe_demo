@@ -10,8 +10,9 @@ Rails.application.routes.draw do
   root "articles#index"
   resources :users
   resources :articles do 
-    resources :posts
-    resources :comments
+    resources :posts do
+      resources :comments
+    end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
