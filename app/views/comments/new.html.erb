@@ -1,16 +1,16 @@
 <center><h2>Add a comment:</h2></center>
-  <div class="container", style="width:40rem" >
-<%= form_with model: @comment, url: article_comments_path do |form| %>
-  <p>
-    <%= form.label :commenter, class:"form-label" %><br>
-    <%= form.text_field :commenter, class:"form-control" %>
-  </p>
-  <p>
-    <%= form.label :desciption, class:"form-label" %><br>
-    <%= form.text_area :description, class:"form-control" %>
-  </p>
-  <p>
-    <%= form.submit %>
-  </p>
-<% end %>
+<div class="container", style="width:40rem" >
+  <%= form_with model: @comment, url: article_post_comments_path do |form| %>
+    <p>
+      <%= form.label :commenter, class:"form-label" %><br>
+      <%= form.text_field :commenter, class:"form-control" %>
+    </p>
+    <p>
+      <%= form.label :desciption, class:"form-label" %><br>
+      <%= form.text_area :description, class:"form-control" %>
+    </p>
+    <p>
+      <%= form.submit %>
+    </p>
+  <% end %>
 </div>

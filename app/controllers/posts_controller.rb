@@ -14,8 +14,13 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = @article.posts.create(post_params.merge(user_id: current_user.id))
-    redirect_to article_post_path(@article, @post)
+    @post = @article.posts.new(post_params)
+    @post.user_id = current_user.id
+    if @post.save 
+      redirect_to article_post_path(@article, @post)
+    else
+      render :new
+    end
   end
 
   def edit

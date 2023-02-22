@@ -1,50 +1,39 @@
 <h1>Welcome</h1>
 <h3>This is Article Website</h3>
 <% if user_signed_in? %>
-<%= link_to "New Article", new_article_path, class:"btn btn-primary"%><br>
-<br>
-<style>
-table{
-  width:100%;
-  text-align:center
-}</style>
-<table class="table table-bordered border-primary">
-<center><tr>
-    <th style="background-color:#FFFFE0">title</th>
-    <th style="background-color:#FFFFE0">Description</th>
-    <th colspan = 2, style="background-color:#FFFFE0">Action</th>
-
-
-</tr></center>
-
-<% @articles.each do |article| %>
-  <tr>
-  
-  <td>
-    <%= link_to article.title, article %>
-  </td>
-
-  <td>
-    <%= article.description%>
-  </td>
-
-  <% if article.user_id == current_user.id %>
-  <td>
-  	<% if article.user_id == current_user.id %>
-    <%= link_to "Edit", edit_article_path(article) %>
+  <%= link_to "New Article", new_article_path, class:"btn btn-primary"%><br>
+  <br>
+  <style>
+    table{width:100%; text-align:center}
+  </style>
+  <table class="table table-bordered border-primary">
+    <center>
+      <tr>
+        <th style="background-color:#FFFFE0">title</th>
+        <th style="background-color:#FFFFE0">Description</th>
+        <th colspan = 2, style="background-color:#FFFFE0">Action</th>
+      </tr>
+    </center>
+    <% @articles.each do |article| %>
+      <tr>
+        <td>
+          <%= link_to article.title, article %>
+        </td>
+        <td>
+          <%= article.description%>
+        </td>
+        <% if article.user_id == current_user.id %>
+          <td>
+            <%= link_to "Edit", edit_article_path(article) %>
+          </td>
+          <td>
+            <%= link_to "Destroy", article_path(article), data: {
+                      turbo_method: :delete,
+                      turbo_confirm: "Are you sure for delete article?"
+                    }%>
+          </td>
+        <% end %>
+      </tr>
     <% end %>
-  </td>
-
-  <td>
-    <%= link_to "Destroy", article_path(article), data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure for delete article?"
-                  } %>
-  </td>
-  <% end %>
-
-  </tr>
-  <% end %>
-<table>
+  <table>
 <% end %>
-

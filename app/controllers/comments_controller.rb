@@ -1,16 +1,9 @@
 class CommentsController < ApplicationController
-  before_action :set_article, only: [:show, :update, :destroy, :create]
+  before_action :set_article, only: [:create, :update, :destroy]
+  before_action :set_post, only: [:destroy, :create]
 
   def index
     @comments =  Comment.all
-  end
-
-  def show
-    @comment = Comment.find(params[:id])
-  end
-
-  def edit
-    @comment = Comment.find(params[:id])
   end
 
   def new
@@ -18,26 +11,21 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = @article.comments.create(comment_params.merge(user_id: current_user.id))
-    redirect_to article_comment_path(@article, @comment)
-  end
-
-  def destroy
-    @comment = @article.comments.find_by(id: params[:id])
-    if @comment.destroy
-      redirect_to root_path 
-    end
-  end
-
-  def update
-    @comment = @article.comments.find_by(id: params[:id])
-    if @comment.update(comment_params)
-      redirect_to article_comment_path(@comment.article, @comment)
+    @comment = @post.comments.new(comment_params)
+    @comment.user_id = current_user.id
+    if @comment.save 
+      redirect_to article_post_path(@article, @post)
     else
-      render :edit
+      render :new
     end
   end
-
+ 
+  def destroy
+    @comment = @post.comments.find_by(id: params[:id])
+    if @comment.destroy
+      redirect_to article_post_path
+    end
+  end
 
   private
 
@@ -45,7 +33,11 @@ class CommentsController < ApplicationController
     @article = Article.find(params[:article_id])
   end
 
+  def set_post
+    @post = Post.find(params[:post_id])
+  end
+
   def comment_params
-    params.require(:comment).permit(:commenter, :description, :article_id, :user_id)
+    params.require(:comment).permit(:commenter, :description, :article_id, :user_id, :post_id)
   end
 end
