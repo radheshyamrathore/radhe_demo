@@ -1,9 +1,11 @@
+<body style="background-color:lightyellow;">
 <h1>Post</h1>
 <ul>
   <li><%= @post.title %></li>
   <li><%= @post.description %></li>
 </ul>
-<% if @post.user_id == current_user.id %>
+<% if current_user.role == 'admin' || @post.user_id == current_user.id  %>
+
   <pre>
     <%= link_to "Edit" ,edit_article_post_path(@article, @post), class:"btn btn-primary" %>  <%= link_to "Destroy", article_post_path(@article, @post), class:"btn btn-danger", data: {
                       turbo_method: :delete,
@@ -42,3 +44,4 @@
     </p>
   <% end %>
 </div>
+</body>
