@@ -4,13 +4,12 @@
   <li><%= @post.description %></li>
 </ul>
 <% if @post.user_id == current_user.id %>
-  <ul>
-    <li><%= link_to "Destroy", article_post_path(@article, @post), data: {
+  <pre>
+    <%= link_to "Edit" ,edit_article_post_path(@article, @post), class:"btn btn-primary" %>  <%= link_to "Destroy", article_post_path(@article, @post), class:"btn btn-danger", data: {
                       turbo_method: :delete,
                       turbo_confirm: "Are you sure for delete article?"
-                    } %></li>
-    <li><%= link_to "Edit" ,edit_article_post_path(@article, @post) %></li>
-  </ul>
+                    } %>
+  </pre>
 <% end %>
 
 <h3>Comments</h3>
@@ -19,10 +18,10 @@
     <li><%= comment.commenter %></li>
     <li><%= comment.description %></li>
     <% if comment.user_id == current_user.id %>
-    <li><%= link_to "Destroy", article_post_comment_path(@article, @post, comment), data: {
+      <%= link_to "Destroy", article_post_comment_path(@article, @post, comment),class:"btn btn-danger", data: {
                     turbo_method: :delete,
                     turbo_confirm: "Are you sure for delete article?"
-                  } %></li>
+                  } %>
     <% end %>
   </ul>
 <% end %>
