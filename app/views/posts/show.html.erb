@@ -28,16 +28,18 @@
 <% end %>
 
 <h3>Add a comment:</h3>
-<%= form_with model: [@article, @post, @post.comments.build ] do |form| %>
-  <p>
-    <%= form.label :commenter %><br>
-    <%= form.text_field :commenter %>
-  </p>
-  <p>
-    <%= form.label :desciption %> <br>
-    <%= form.text_area :description %>
-  </p>
-  <p>
-    <%= form.submit %>
-  </p>
-<% end %>
+<div class="container", style="float: left; width:550px;">
+  <%= form_with model: [@article, @post, @post.comments.build ] do |form| %>
+    <p>
+      <%= form.label :commenter, class:"form-label" %><br>
+      <%= form.text_field :commenter, class:"form-control" %>
+    </p>
+    <p>
+      <%= form.label :desciption, class:"form-label" %> <br>
+      <%= form.text_area :description, class:"form-control" %>
+    </p>
+    <p>
+      <%= form.submit %>
+    </p>
+  <% end %>
+</div>
