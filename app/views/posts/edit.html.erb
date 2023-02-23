@@ -1,4 +1,5 @@
 <body style="background-color:lightyellow;">
+<%= link_to "back", article_post_path, class:"btn btn-success"%>
 <center><h2>Edit Post</h2></center>
 <div class="container", style="width:40rem" >
   <%= form_with model: @post, url:  article_post_path do |form| %>

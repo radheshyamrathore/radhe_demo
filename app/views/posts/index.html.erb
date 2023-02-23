@@ -1,0 +1,8 @@
+<h2>Posts</h2>
+<% @article.posts.each do |post| %>
+  <ul>
+    <h3><%= link_to post.title, article_post_path(@article, post) %></h3>
+    <h6><%= post.description %></h6>
+  </ul>
+<% end %>
+</body>
