@@ -1,3 +1,4 @@
+<body style="background-color:lightyellow;">
 <h1>Welcome</h1>
 <h3>This is Article Website</h3>
 <% if user_signed_in? %>
@@ -22,7 +23,7 @@
         <td>
           <%= article.description%>
         </td>
-        <% if article.user_id == current_user.id %>
+        <% if current_user.role == 'admin' || article.user_id == current_user.id  %>
           <td>
             <%= link_to "Edit", edit_article_path(article) %>
           </td>
@@ -35,5 +36,6 @@
         <% end %>
       </tr>
     <% end %>
-  <table>
+  </table>
 <% end %>
+</body>

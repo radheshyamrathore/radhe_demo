@@ -1,6 +1,7 @@
-<center><h2>Add post:</h2></center>
+<body style="background-color:lightyellow;">
+<center><h2>Edit Post</h2></center>
 <div class="container", style="width:40rem" >
-  <%= form_with model: @post, url: article_post_path do |form| %>
+  <%= form_with model: @post, url:  article_post_path do |form| %>
     <p>
       <%= form.label :title, class:"form-label" %><br>
       <%= form.text_field :title, class:"form-control" %>
@@ -14,3 +15,4 @@
     </p>
   <% end %>
 </div>
+</body>
