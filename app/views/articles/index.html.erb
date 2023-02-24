@@ -23,7 +23,7 @@
         <td>
           <%= article.description%>
         </td>
-        <% if current_user.role == 'admin' || article.user_id == current_user.id  %>
+        <% if current_user.role == 'admin'|| current_user.role == 'editor' && article.user_id == current_user.id  %>
           <td>
             <%= link_to "Edit", edit_article_path(article), class:"btn btn-success" %>
           </td>
