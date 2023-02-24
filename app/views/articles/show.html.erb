@@ -5,10 +5,17 @@
   <h4><%= @article.title %></h4>
   <h6><%= @article.description %></h6>
 </ul>
+<% if current_user.role == 'admin' || @article.user_id == current_user.id  %>
+<pre><%= link_to "Edit" ,edit_article_path(@article), class:"btn btn-warning" %> || <%= link_to "Destroy", article_path(@article), class:"btn btn-danger", data: {
+                      turbo_method: :delete,
+                      turbo_confirm: "Are you sure for delete article?"
+                    } %>
+</pre>
+<% end %>
 <%= link_to "New Post", new_article_post_path(@article), class:"btn btn-primary" %>
 
 <h2>Posts</h2>
-<a style = "color: green" ><h4> no.of post- <%= @article.posts.count %></h4></a>
+<h4 style = "color: green">Total post- <%= @article.posts.count %></h4>
 <% @article.posts.each do |post| %>
   <ul>
     <h3><%= link_to post.title, article_post_path(@article, post) %></h3>

@@ -1,4 +1,4 @@
-<%= link_to "back", article_path(@article), class:"btn btn-success"%>
+ <%= link_to "back", article_path(@article), class:"btn btn-success"%>
 <body style="background-color:lightyellow;">
 <h1>Post</h1>
 <ul>
@@ -13,16 +13,15 @@
                     } %>
   </pre>
 <% end %>
-
 <h3>Comments</h3>
-<a style = "color: blue" ><h4>no.of comments- <%= @post.comments.count %></h4></a>
+<a style = "color: blue" ><h4>Total comments- <%= @post.comments.count %></h4></a>
 <% @post.comments.each do |comment| %>
   <ul>
     <h4 style = "color: green"><%= comment.user.name %></h4>
     <h6><%= comment.description %></h6>
     <% if comment.user_id == current_user.id %>
-      <%= link_to "Destroy", article_post_comment_path(@article, @post, comment),class:"btn btn-danger", data: {
-                    turbo_method: :delete,
+      <%= link_to "Destroy", article_post_comment_path(@article, @post, comment), class:"btn btn-danger delete_comment", data: {
+                    turbo_method: :delete, :remote => true,
                     turbo_confirm: "Are you sure for delete article?"
                   } %>
     <% end %>
