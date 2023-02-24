@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'likes/index'
   get 'posts/index'
   get 'posts/show'
   devise_for :users
@@ -12,6 +13,7 @@ Rails.application.routes.draw do
   resources :articles do 
     resources :posts do
       resources :comments
+      resources :likes
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

@@ -1,11 +1,11 @@
+<%= link_to "back", article_path(@article), class:"btn btn-success"%>
 <body style="background-color:lightyellow;">
 <h1>Post</h1>
 <ul>
-  <li><%= @post.title %></li>
-  <li><%= @post.description %></li>
+  <h2><%= @post.title %></h2>
+  <h6><%= @post.description %></h6>
 </ul>
 <% if current_user.role == 'admin' || @post.user_id == current_user.id  %>
-
   <pre>
     <%= link_to "Edit" ,edit_article_post_path(@article, @post), class:"btn btn-primary" %>  <%= link_to "Destroy", article_post_path(@article, @post), class:"btn btn-danger", data: {
                       turbo_method: :delete,
@@ -13,11 +13,13 @@
                     } %>
   </pre>
 <% end %>
+
 <h3>Comments</h3>
+<h4>no.of comments- <%= @post.comments.count %></h4>
 <% @post.comments.each do |comment| %>
   <ul>
-    <li><%= comment.commenter %></li>
-    <li><%= comment.description %></li>
+    <h4><%= comment.user.name %></h4>
+    <h6><%= comment.description %></h6>
     <% if comment.user_id == current_user.id %>
       <%= link_to "Destroy", article_post_comment_path(@article, @post, comment),class:"btn btn-danger", data: {
                     turbo_method: :delete,
@@ -30,10 +32,6 @@
 <h3>Add a comment:</h3>
 <div class="container", style="float: left; width:550px;">
   <%= form_with model: [@article, @post, @post.comments.build ] do |form| %>
-    <p>
-      <%= form.label :commenter, class:"form-label" %><br>
-      <%= form.text_field :commenter, class:"form-control" %>
-    </p>
     <p>
       <%= form.label :desciption, class:"form-label" %> <br>
       <%= form.text_area :description, class:"form-control" %>

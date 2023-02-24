@@ -1,9 +1,8 @@
-<body style="background-color:lightyellow;">
-<h1>Posts</h1>
-<% @posts.each do |post| %>
+<h2>Posts</h2>
+<% @article.posts.each do |post| %>
   <ul>
-    <li><%= link_to post.title, article_post_path(id:post.id) %></li>
-    <li><%= post.description %></li>
+    <h3><%= link_to post.title, article_post_path(@article, post) %></h3>
+    <h6><%= post.description %></h6>
   </ul>
 <% end %>
 </body>
