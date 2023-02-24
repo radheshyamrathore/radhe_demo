@@ -8,7 +8,7 @@
 <%= link_to "New Post", new_article_post_path(@article), class:"btn btn-primary" %>
 
 <h2>Posts</h2>
-<h4> no.of post- <%= @article.posts.count %></h4>
+<a style = "color: green" ><h4> no.of post- <%= @article.posts.count %></h4></a>
 <% @article.posts.each do |post| %>
   <ul>
     <h3><%= link_to post.title, article_post_path(@article, post) %></h3>
