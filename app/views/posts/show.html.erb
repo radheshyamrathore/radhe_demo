@@ -15,9 +15,10 @@
 <% end %>
 
 <h3>Comments</h3>
+<h4>no.of comments- <%= @post.comments.count %></h4>
 <% @post.comments.each do |comment| %>
   <ul>
-    <h4><%= comment.commenter %></h4>
+    <h4><%= comment.user.name %></h4>
     <h6><%= comment.description %></h6>
     <% if comment.user_id == current_user.id %>
       <%= link_to "Destroy", article_post_comment_path(@article, @post, comment),class:"btn btn-danger", data: {
@@ -31,10 +32,6 @@
 <h3>Add a comment:</h3>
 <div class="container", style="float: left; width:550px;">
   <%= form_with model: [@article, @post, @post.comments.build ] do |form| %>
-    <p>
-      <%= form.label :commenter, class:"form-label" %><br>
-      <%= form.text_field :commenter, class:"form-control" %>
-    </p>
     <p>
       <%= form.label :desciption, class:"form-label" %> <br>
       <%= form.text_area :description, class:"form-control" %>
