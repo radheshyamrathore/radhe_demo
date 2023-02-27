@@ -1,0 +1,5 @@
+<div class="container", style="width:40rem" >
+  <%= form_with model: @like, url: article_post_likes_path do |form| %>
+    <%= form.hidden_field :post_id, value: @post_id %>
+    <%= form.submit "Like" %>
+  <% end %>
