@@ -15,15 +15,19 @@
   <nav class="navbar navbar-dark bg-dark" style="height:4.5rem" >
   <p class="navbar-text float-right">
     <%= link_to "home", root_path, class:"btn btn-secondary" %>
+    </p>
+    <div style="float:right;">
     <% if user_signed_in? %>
-      <a>Logged in as <strong><%= current_user.email %></strong>.</a>
-      <%= link_to 'Edit profile', edit_user_registration_path, class:"btn btn-success" %> |
-      <%= link_to "Logout", destroy_user_session_path, method: :delete, class:"btn btn-danger" %>
+      <a style = "color: white">Logged in as <strong><%= current_user.email %></strong></a>
+        <%= link_to 'Edit profile', edit_user_registration_path, class:"btn btn-success" %>
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, class:"btn btn-danger" %>
+    </div>
     <% else %>
+    <div style="float:right;">
       <%= link_to "login", new_user_session_path, class:"btn btn-primary" %>
       <%= link_to "signup", new_user_registration_path, class:"btn btn-success"%>
+    </div>
     <% end %>
-  </p>
   </nav>
   <%= yield %>
   </body>

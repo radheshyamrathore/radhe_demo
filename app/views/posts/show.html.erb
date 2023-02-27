@@ -1,11 +1,11 @@
-<%= link_to "back", article_path(@article), class:"btn btn-success"%>
+ <%= link_to "back", article_path(@article), class:"btn btn-success"%>
 <body style="background-color:lightyellow;">
 <h1>Post</h1>
 <ul>
   <h2><%= @post.title %></h2>
   <h6><%= @post.description %></h6>
 </ul>
-<% if current_user.role == 'admin' || @post.user_id == current_user.id  %>
+<% if current_user.role == 'admin'|| current_user.role == 'editor' && @post.user_id == current_user.id  %>
   <pre>
     <%= link_to "Edit" ,edit_article_post_path(@article, @post), class:"btn btn-primary" %>  <%= link_to "Destroy", article_post_path(@article, @post), class:"btn btn-danger", data: {
                       turbo_method: :delete,
@@ -13,16 +13,15 @@
                     } %>
   </pre>
 <% end %>
-
 <h3>Comments</h3>
-<h4>no.of comments- <%= @post.comments.count %></h4>
+<a style = "color: blue" ><h4>Total comments- <%= @post.comments.count %></h4></a>
 <% @post.comments.each do |comment| %>
   <ul>
-    <h4><%= comment.user.name %></h4>
+    <h4 style = "color: green"><%= comment.user.name %></h4>
     <h6><%= comment.description %></h6>
-    <% if comment.user_id == current_user.id %>
-      <%= link_to "Destroy", article_post_comment_path(@article, @post, comment),class:"btn btn-danger", data: {
-                    turbo_method: :delete,
+    <% if current_user.role == 'admin' || comment.user_id == current_user.id %>
+      <%= link_to "Destroy", article_post_comment_path(@article, @post, comment), class:"btn btn-danger delete_comment", data: {
+                    turbo_method: :delete, :remote => true,
                     turbo_confirm: "Are you sure for delete article?"
                   } %>
     <% end %>
