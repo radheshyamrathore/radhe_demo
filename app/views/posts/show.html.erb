@@ -17,25 +17,26 @@
 <%= @post.likes.count %>
 <% like = @post.likes.find { |like| like.user_id == current_user.id} %>
 <% if like %> 
-  <%= button_to "unlike", article_post_like_path(@article, @post, like), class:"btn btn-danger", method: :delete %>
+  <%= button_to "unlike 👎", article_post_like_path(@article, @post, like), class:"btn btn-danger", method: :delete %>
 <% else %>
-  <%= button_to "like", article_post_likes_path(@article, @post), class:"btn btn-success", method: :post %>
-<% end %>
-
-<h3>Comments</h3>
-<a style = "color: blue" ><h4>Total comments- <%= @post.comments.count %></h4></a>
-<% @post.comments.each do |comment| %>
-  <ul>
-    <h4 style = "color: green"><%= comment.user.name %></h4>
-    <h6><%= comment.description %></h6>
-    <% if current_user.role == 'admin' || comment.user_id == current_user.id %>
-      <%= link_to "Destroy", article_post_comment_path(@article, @post, comment), class:"btn btn-danger delete_comment", data: {
-                    turbo_method: :delete, :remote => true,
-                    turbo_confirm: "Are you sure for delete article?"
-                  } %>
-    <% end %>
-  </ul>
-<% end %>
+  <%= button_to "Like 👍", article_post_likes_path(@article, @post), class:"btn btn-success", method: :post %>
+<% end %><br>
+<div class="container", style="float: right; width:700px;">
+  <h3>Comments</h3>
+  <a style = "color: blue" ><h4>Total count- <%= @post.comments.count %></h4></a>
+  <% @post.comments.each do |comment| %>
+    <ul>
+      <h4 style = "color: green"><%= comment.user.name %></h4>
+      <h6><%= comment.description %></h6>
+      <% if current_user.role == 'admin' || comment.user_id == current_user.id %>
+        <%= link_to "Destroy", article_post_comment_path(@article, @post, comment), class:"btn btn-danger delete_comment", data: {
+                      turbo_method: :delete, :remote => true,
+                      turbo_confirm: "Are you sure for delete article?"
+                    } %>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
 <h3>Add a comment:</h3>
 <div class="container", style="float: left; width:550px;">
   <%= form_with model: [@article, @post, @post.comments.build ] do |form| %>

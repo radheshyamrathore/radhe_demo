@@ -5,20 +5,17 @@
   <h4><%= @article.title %></h4>
   <h6><%= @article.description %></h6>
 </ul>
-<% if current_user.role == 'admin'|| current_user.role == 'editor' && @article.user_id == current_user.id  %>
-  <pre><%= link_to "Edit" ,edit_article_path(@article), class:"btn btn-warning" %> || <%= link_to "Destroy", article_path(@article), class:"btn btn-danger", data: {
-                        turbo_method: :delete,
-                        turbo_confirm: "Are you sure for delete article?"
-                      } %>
-  </pre>
-  <%= link_to "New Post", new_article_post_path(@article), class:"btn btn-primary" %>
-<% end %>
-<h2>Posts</h2>
-<h4 style = "color: green">Total post- <%= @article.posts.count %></h4>
-<% @article.posts.each do |post| %>
-  <ul>
+
+  <div class="container", style="float: right; width:200px;">
+    <%= link_to "New Post", new_article_post_path(@article), class:"btn btn-primary" %>
+  </div>
+
+<div class="container", style="float: right; width:600px;">
+  <h2>Posts</h2>
+  <h4 style = "color: green">Total count- <%= @article.posts.count %></h4>
+  <% @article.posts.each do |post| %>
     <h3><%= link_to post.title, article_post_path(@article, post) %></h3>
-    <h6><%= post.description %></h6>
-  </ul>
-<% end %>
+    <h6><%= post.description %></h6>  
+  <% end %>
+  </div>
 </body>
