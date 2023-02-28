@@ -13,12 +13,14 @@
                     } %>
   </pre>
 <% end %>
-<div >
-  <%= form_with model: @like, url: article_post_likes_path(article_id:@article.id, post_id:@post.id) do |form| %>
-    <%= form.hidden_field :post_id, value: @post.id %>
-    <%= form.submit "Like" %> <%= @post.likes.count %>
-  <% end %>
-</div>
+
+<%= @post.likes.count %>
+<% like = @post.likes.find { |like| like.user_id == current_user.id} %>
+<% if like %> 
+  <%= button_to "unlike", article_post_like_path(@article, @post, like), class:"btn btn-danger", method: :delete %>
+<% else %>
+  <%= button_to "like", article_post_likes_path(@article, @post), class:"btn btn-success", method: :post %>
+<% end %>
 
 <h3>Comments</h3>
 <a style = "color: blue" ><h4>Total comments- <%= @post.comments.count %></h4></a>
