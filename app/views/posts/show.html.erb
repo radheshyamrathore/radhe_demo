@@ -14,12 +14,25 @@
   </pre>
 <% end %>
 
-<%= @post.likes.count %>
 <% like = @post.likes.find { |like| like.user_id == current_user.id} %>
 <% if like %> 
+<div class="row">
+  <span class="col-sm-1">
   <%= button_to "unlike 👎", article_post_like_path(@article, @post, like), class:"btn btn-danger", method: :delete %>
+</span>
+  <span class="col-sm-1">
+    <%= @post.likes.count %>
+  </span>
+</div>
 <% else %>
+<div class="row">
+  <span class="col-md-1">
   <%= button_to "Like 👍", article_post_likes_path(@article, @post), class:"btn btn-success", method: :post %>
+</span>
+<span class="col-md-1">
+  <%= @post.likes.count %>
+</span>
+</div>
 <% end %><br>
 <div class="container", style="float: right; width:700px;">
   <h3>Comments</h3>
