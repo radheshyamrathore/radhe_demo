@@ -1,17 +1,15 @@
 <body style="background-color:lightyellow;">
 <center><h2>Add post:</h2></center>
 <div class="container", style="width:40rem" >
-  <%= form_with model: @post, url: article_posts_path do |form| %>
+  <%= form_tag article_posts_path, method: :post do %>
     <p>
-      <%= form.label :title, class:"form-label" %><br>
-      <%= form.text_field :title, class:"form-control" %>
+      <%= text_field_tag :title %>
     </p>
     <p>
-      <%= form.label :desciption, class:"form-label" %><br>
-      <%= form.text_area :description, class:"form-control" %>
+      <%= text_field_tag :description %>
     </p>
     <p>
-      <%= form.submit %>
+      <%= submit_tag %>
     </p>
   <% end %>
 </div>

@@ -2,7 +2,10 @@
 <h1>Welcome</h1>
 <h3>This is Article Website</h3>
 <% if user_signed_in? %>
+<div class="container", style="float: right; width:150px;">
   <%= link_to "New Article", new_article_path, class:"btn btn-primary"%><br>
+</div><br>
+
   <br>
   <style>
     table{width:100%; text-align:center}
