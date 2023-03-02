@@ -21,7 +21,7 @@ class CommentsController < ApplicationController
   end
  
   def destroy
-    @comment = @post.comments.find_by(id: params[:id])
+    @comment = @post.comments.find(id: params[:id])
     @comment.destroy
     respond_to do |format|
     format.html { redirect_to article_post_path(@article, @post), notice: 'User was successfully destroyed.' }

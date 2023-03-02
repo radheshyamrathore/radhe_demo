@@ -19,7 +19,7 @@ class PostsController < ApplicationController
     if @post.save 
       redirect_to article_post_path(@article, @post)
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
