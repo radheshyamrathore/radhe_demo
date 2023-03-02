@@ -13,20 +13,6 @@
                     } %>
   </pre>
 <% end %>
-<h3>Comments</h3>
-<a style = "color: blue" ><h4>Total comments- <%= @post.comments.count %></h4></a>
-<% @post.comments.each do |comment| %>
-  <ul>
-    <h4 style = "color: green"><%= comment.user.name %></h4>
-    <h6><%= comment.description %></h6>
-    <% if current_user.role == 'admin' || comment.user_id == current_user.id %>
-      <%= link_to "Destroy", article_post_comment_path(@article, @post, comment), class:"btn btn-danger delete_comment", data: {
-                    turbo_method: :delete, :remote => true,
-                    turbo_confirm: "Are you sure for delete article?"
-                  } %>
-    <% end %>
-  </ul>
-<% end %>
 
 <% like = @post.likes.find { |like| like.user_id == current_user.id} %>
 <% if like %> 
