@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'likes/index'
   get 'posts/index'
   get 'posts/show'
+  get '/search', to: "posts#search"
   devise_for :users
 
   devise_scope :user do  

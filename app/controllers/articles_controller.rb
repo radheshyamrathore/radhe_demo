@@ -5,6 +5,11 @@ class ArticlesController < ApplicationController
     @articles = Article.all
   end
 
+  def index
+    @q = Article.ransack(params[:q])
+    @articles = @q.result(distinct: true)
+  end
+
   def show
   end
 
@@ -44,6 +49,6 @@ class ArticlesController < ApplicationController
   end
   
   def article_params
-    params.require(:article).permit(:title, :description, :user_id)
+    params.require(:article).permit(:title, :description, :user_id, :q)
   end
 end

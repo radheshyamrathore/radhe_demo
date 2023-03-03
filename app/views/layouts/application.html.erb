@@ -16,10 +16,11 @@
     <div class="alert alert-<%= key %> <%= value %>"></div>
     <% end %>
     
-  <nav class="navbar navbar-dark bg-dark" style="height:4.5rem" >
-  <p class="navbar-text float-right">
-    <%= link_to "home", root_path, class:"btn btn-secondary" %>
+    <nav class="navbar navbar-dark bg-dark" style="height:4.5rem" >
+    <p class="navbar-text float-right">
+      <%= link_to "home", root_path, class:"btn btn-secondary" %>
     </p>
+  
     <div style="float:right;">
     <% if user_signed_in? %>
       <a style = "color: white">Logged in as <strong><%= current_user.email %></strong></a>

@@ -2,7 +2,11 @@ class PostsController < ApplicationController
   before_action :set_article, only: [:show, :create, :update, :destroy, :index]
 
   def index
+    if params[:search]
+      @posts = Post.where('title Like ?', "%#{params[:search]}")
+    else 
     @posts = Post.all
+    end
   end
 
   def show
@@ -50,6 +54,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :description, :article_id, :user_id)
+    params.require(:post).permit(:title, :description, :article_id, :user_id, :search)
   end
 end
