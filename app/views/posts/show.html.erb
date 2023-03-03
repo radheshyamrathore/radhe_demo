@@ -35,8 +35,7 @@
 </div>
 <% end %><br>
 <div class="container", style="float: right; width:700px;">
-  <h3>Comments</h3>
-  <a style = "color: blue" ><h4>Total count- <%= @post.comments.count %></h4></a>
+  <h3>Comments(<%= @post.comments.count %>)</h3>
   <% @post.comments.each do |comment| %>
     <ul>
       <h4 style = "color: green"><%= comment.user.name %></h4>
