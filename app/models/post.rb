@@ -5,7 +5,7 @@ class Post < ApplicationRecord
   has_many :likes, dependent: :destroy
   #validates :title, presence: true
   validate :custom_title_valid
-  validates :description,  length: { minimum: 30 }
+  #validates :description,  length: { minimum: 30 }
 
   def custom_title_valid
     if title.blank?
