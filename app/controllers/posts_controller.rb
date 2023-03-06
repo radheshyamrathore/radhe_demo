@@ -2,7 +2,11 @@ class PostsController < ApplicationController
   before_action :set_article, only: [:show, :create, :update, :destroy, :index]
 
   def index
+    if params[:search]
+      @posts = Post.where('title Like ?', "%#{params[:search]}")
+    else 
     @posts = Post.all
+    end
   end
 
   def show
@@ -14,12 +18,12 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = @article.posts.new(title: params[:title], description:params[:description])
+    @post = @article.posts.new(post_params)
     @post.user_id = current_user.id
     if @post.save 
       redirect_to article_post_path(@article, @post)
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -50,6 +54,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :description, :article_id, :user_id)
+    params.require(:post).permit(:title, :description, :article_id, :user_id, :search)
   end
 end

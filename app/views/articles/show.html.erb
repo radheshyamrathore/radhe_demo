@@ -11,8 +11,7 @@
   </div>
 
 <div class="container", style="float: right; width:600px;">
-  <h2>Posts</h2>
-  <h4 style = "color: green">Total count- <%= @article.posts.count %></h4>
+  <h2>Posts(<%= @article.posts.count %>)</h2>
   <% @article.posts.each do |post| %>
     <h3><%= link_to post.title, article_post_path(@article, post) %></h3>
     <h6><%= post.description %></h6>  

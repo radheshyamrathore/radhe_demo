@@ -5,6 +5,11 @@ class ArticlesController < ApplicationController
     @articles = Article.all
   end
 
+  def index
+    @q = Article.ransack(params[:q])
+    @articles = @q.result(distinct: true)
+  end
+
   def show
   end
 
@@ -13,10 +18,14 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = current_user.articles.create(article_params)
-    redirect_to @article
+    @article = current_user.articles.new(article_params)
+    if @article.save 
+      redirect_to @article
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
-
+  
   def edit
   end
 
@@ -40,6 +49,6 @@ class ArticlesController < ApplicationController
   end
   
   def article_params
-    params.require(:article).permit(:title, :description, :user_id)
+    params.require(:article).permit(:title, :description, :user_id, :q)
   end
 end
