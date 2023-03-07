@@ -19,7 +19,6 @@ class User < ApplicationRecord
   end
 
   def welcome_method
-    byebug
     UserMailer.welcome_email(self).deliver_now
   end
 end
