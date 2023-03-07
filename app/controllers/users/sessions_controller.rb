@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
+  if User.find_by_email(params[:user][:email]).present?
+  if User.find_by_email(params[:user][:email]).try(:confirmed_at).present?
+  super
+  else
+    redirect_to :back, notice:  'Please confirm your email first'
+  end
+  else
+    redirect_to :back, notice:  'User not found'
+  end
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in

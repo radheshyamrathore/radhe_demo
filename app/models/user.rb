@@ -5,6 +5,6 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   enum role: %i[user admin editor]
 
-  devise :database_authenticatable, :registerable,
+  devise :confirmable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 end
