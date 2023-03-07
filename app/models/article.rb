@@ -3,7 +3,7 @@ class Article < ApplicationRecord
   has_many :posts, dependent: :destroy
   validate :custom_method 
   # validates :description, presence: true
-  validate :description_method
+  #validate :description_method
 
   def custom_method
     if title.blank?
@@ -13,9 +13,9 @@ class Article < ApplicationRecord
     end
   end
 
-  def description_method
-    if description.length < 30
-      errors.add(:description, "must be provided minimum 30 characters ")
-    end
-  end
+  # def description_method
+  #   if description.length < 30
+  #     errors.add(:description, "must be provided minimum 30 characters ")
+  #   end
+  # end
 end

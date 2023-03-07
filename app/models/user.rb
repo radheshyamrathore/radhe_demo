@@ -7,4 +7,19 @@ class User < ApplicationRecord
 
   devise :confirmable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+
+  after_initialize :set_default_role
+  after_create :welcome_method
+
+  private
+
+  def set_default_role
+    self.role ||= :user
+  end
+
+  def welcome_method
+    byebug
+    UserMailer.welcome_email(self).deliver_now
+  end
 end
