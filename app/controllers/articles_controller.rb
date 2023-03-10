@@ -20,8 +20,7 @@ class ArticlesController < ApplicationController
   def create
     @article = current_user.articles.new(article_params)
     if @article.save 
-      byebug
-      ArticleMailer.welcome_article(@article, current_user).deliver_now
+      ArticleEmailJob.set(wait: 1.minute).perform_later(@article, current_user)
       redirect_to @article
     else
       render :new, status: :unprocessable_entity

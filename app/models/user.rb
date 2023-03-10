@@ -10,15 +10,15 @@ class User < ApplicationRecord
 
 
   after_initialize :set_default_role
-  after_create :welcome_method
+  #after_create :welcome_method
 
-  private
 
   def set_default_role
     self.role ||= :user
   end
 
   def welcome_method
-    UserMailer.welcome_email(self).deliver_now
+    byebug
+    ConfirmationEmailJob.set(wait: 1.minute).perform_later(self)
   end
 end
