@@ -2,13 +2,14 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
 
   def index
+    FirstJob.set(wait: 1.minute).perform_later
     @articles = Article.all
   end
 
-  def index
-    @q = Article.ransack(params[:q])
-    @articles = @q.result(distinct: true)
-  end
+  # def index
+  #   @q = Article.ransack(params[:q])
+  #   @articles = @q.result(distinct: true)
+  # end
 
   def show
   end
