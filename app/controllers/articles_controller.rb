@@ -1,14 +1,24 @@
 class ArticlesController < ApplicationController
+  require 'csv'
   before_action :set_article, only: [:show, :edit, :update, :destroy]
+  def import
+    file = params[:file]
+    return redirect_to articles_path, notice: "only csv file please" unless params[:file].content_type == "text/csv"
+
+    filtered = []
+    CSV.foreach(file, :headers => true) do |row|
+      filtered << row
+    end
+  end
 
   def index
     @articles = Article.all
   end
 
-  def index
-    @q = Article.ransack(params[:q])
-    @articles = @q.result(distinct: true)
-  end
+  # def index
+  #   @q = Article.ransack(params[:q])
+  #   @articles = @q.result(distinct: true)
+  # end
 
   def show
   end
