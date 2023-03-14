@@ -8,5 +8,9 @@ class UserMailer < ApplicationMailer
       subject: 'Welcome to My Awesome Site'
       )
   end
-end
 
+  def confirmation_instructions(user, token, opts={})
+    @token = token
+    devise_mail(user, :confirmation_instructions, opts)
+  end
+end
