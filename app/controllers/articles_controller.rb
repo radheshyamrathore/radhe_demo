@@ -2,13 +2,11 @@ class ArticlesController < ApplicationController
   require 'csv'
   before_action :set_article, only: [:show, :edit, :update, :destroy]
   def import
-    byebug
     file = params[:file]
     return redirect_to articles_path, notice: "only csv file please" unless params[:file].content_type == "text/csv"
 
     filtered = []
     CSV.foreach(file, :headers => true) do |row|
-    
       filtered << row
     end
   end
@@ -30,16 +28,14 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    byebug
-    Article.import(params[:file])
-    # @article = current_user.articles.new(article_params)
-    # if @article.save 
-    #   byebug
-    #   ArticleMailer.welcome_article(@article, current_user).deliver_now
-    #   redirect_to @article
-    # else
-    #   render :new, status: :unprocessable_entity
-    # end
+    @article = current_user.articles.new(article_params)
+    if @article.save 
+      byebug
+      ArticleMailer.welcome_article(@article, current_user).deliver_now
+      redirect_to @article
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
   
   def edit
