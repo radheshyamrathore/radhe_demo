@@ -2,6 +2,13 @@
 <h1>Welcome</h1>
 <h3>This is Article Website</h3>
 <% if user_signed_in? %>
+<p style = "color: green"><%= notice %></p>
+<%= link_to "download as csv", articles_path(format: :csv) %>
+<%= form_with url:import_articles_path, method: :post do |form| %>
+<%= form.file_field :file, accept: ".csv" %>
+<%= form.button "import" %>
+<% end %>
+
 <div class="container", style="float: right; width:150px;">
   <%= link_to "New Article", new_article_path, class:"btn btn-primary"%><br>
 </div><br>
